@@ -1,0 +1,12 @@
+- name: install Maven facts
+  become: yes
+  template:
+    src: facts.j2
+    dest: 'C:\Users\rajat\OneDrive\Documents\maventar\maven\facts/ansible/facts.d/factx.fact'
+    owner: root
+    group: root
+    mode: 'u=rw,go=r'
+
+- name: re-read facts
+  setup:
+    filter: ansible_User

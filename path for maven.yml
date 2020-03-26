@@ -1,0 +1,20 @@
+- name: Create /usr/local/maven directory path
+  sudo: yes
+  file:
+    name: "/usr/local/maven"
+    state: directory
+    mode: "0755"
+
+- name: Update the symbolic link to the default Maven version
+  sudo: yes
+  file:
+    path: "/usr/local/maven/default"
+    src: "C:\Users\rajat\OneDrive\Documents\maventarfile\maven/apache-maven-3.6.3" 
+    state: link
+    force: yes
+
+- name: Inform the system where Maven is located
+  sudo: yes
+  command: "{{item}}"
+  with_items:
+    - update-alternatives --install "/usr/bin/mvn" "mvn" "/usr/local/maven/default/bin/mvn" 1

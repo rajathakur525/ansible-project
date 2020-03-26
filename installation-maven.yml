@@ -1,0 +1,28 @@
+---
+# tasks file for apache-maven
+- name: Checking if Maven is already installed
+  stat: 
+    path: C:\Users\rajat\OneDrive\Documents\maventarfile\maven
+  register: maven_installed
+
+- name: Downloading 
+  get_url:
+    url: apache-maven-3.6.3-bin.tar.gz
+    dest: C:\Users\rajat\OneDrive\Documents\maventarfile\maven
+    url_username: raja
+    url_password: xyzw
+  when: not maven_installed.stat.exists
+- name: Extract maven from tar gz file
+  unarchive: 
+    src: "C:\Users\rajat\OneDrive\Documents\maventarfile
+    dest: "C:\Users\rajat\OneDrive\Documents\maventarfile\maven
+    creates: "C:\Users\rajat\OneDrive\Documents\maventarfile\maven/apache-maven-3.6.3" 
+    copy: no
+  when: maven_exists.changed
+- name: Set the permissions for maven binaries
+  file: 
+    path: "C:\Users\rajat\OneDrive\Documents\maventarfile\maven/apache-maven-3.6.3/bin"
+    state: directory 
+    mode: 0755 
+    recurse: yes
+
